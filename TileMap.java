@@ -165,6 +165,23 @@ public class TileMap
         }
     }
 
+    //CLASS HELPERS
+    //some helpers
+    public String getData(String section, String attribute)
+    {
+        return this.key.get(section).get(attribute);
+    }
+
+    //return tiles from tileset, using coord stored in the tile attribute
+    //parses a string like "0,2"
+    public Tile getTileAt(String coordinate)
+    {
+        int row = Integer.parseInt(coordinate.replaceAll(",.*", ""));
+        int col = Integer.parseInt(coordinate.replaceAll(".*,", ""));
+        return ts.getTileAt(col, row);
+
+    }
+
     //useful methods
     public boolean hasAttribute(int col, int row, String attribute)
     {
@@ -191,26 +208,7 @@ public class TileMap
         return hasAttribute(col, row, "block");
     }
 
-    //determines if the tile is safe to move to
-    public boolean canBeMovedTo(Point p)
-    {
-        String ch = tileAtPoint(p);
-        for(Npc npc : this.NpcSprites)
-        {
-            if(npc.getLoc().equals(p)) return false;
-        }
-        if(this.key.get(ch).containsKey("block"))
-            return false;
-        else return true;
-    }
-    //takes a point and returns the char on the map
-    public String tileAtPoint(Point p)
-    {
-        int col = p.x/Game.TILE_SIZE;
-        int row = p.y/Game.TILE_SIZE;
-        String ch = String.valueOf(this.charMap.get(row).charAt(col));
-        return ch;
-    }
+    
 
     //MY GETTERS
     public int getCols()
@@ -227,20 +225,28 @@ public class TileMap
         return this.NpcSprites;
     }
 
-    //some helpers
-    public String getData(String section, String attribute)
+    //determines if the tile is safe to move to
+    public boolean canBeMovedTo(Point p)
     {
-        return this.key.get(section).get(attribute);
+        Tile t = tileAtPoint(p);
+        for(Npc npc : this.NpcSprites)
+        {
+            if(npc.getLoc().equals(p)) return false;
+        }
+        if(t.getDesc().containsKey("block"))
+            return false;
+        else return true;
+    }
+    //takes a point and returns the char on the map
+    public Tile tileAtPoint(Point p)
+    {
+        int col = p.x/Game.TILE_SIZE;
+        int row = p.y/Game.TILE_SIZE;
+        //String ch = String.valueOf(this.charMap.get(row).charAt(col));
+        //return ch;
+        return this.map[col][row];
     }
 
-    //return tiles from tileset, using coord stored in the tile attribute
-    //parses a string like "0,2"
-    public Tile getTileAt(String coordinate)
-    {
-        int row = Integer.parseInt(coordinate.replaceAll(",.*", ""));
-        int col = Integer.parseInt(coordinate.replaceAll(".*,", ""));
-        return ts.getTileAt(col, row);
-
-    }
+    
 
 }

@@ -54,5 +54,24 @@ public class Tile
     {
         return this.tileImages.get(0);
     }
+
+    public HashMap<String,String> getDesc()
+    {
+        return this.desc;
+    }
+
+    public boolean has(String attribute)
+    {
+        if(this.desc.containsKey(attribute))
+        {
+            return true;
+        }
+        else return false;
+    }
+
+    public String get(String attribute)
+    {
+        return this.desc.get(attribute);
+    }
     
 }

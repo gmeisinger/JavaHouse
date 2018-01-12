@@ -55,14 +55,13 @@ public class Player
         //INTERACT
         if(Canvas.isKeyHit(KeyEvent.VK_SPACE))
         {
-            String ch = this.map.tileAtPoint(getLookingLoc());
+            Tile t = this.map.tileAtPoint(getLookingLoc());
             String msg;
-            boolean hasMsg = false;
             DialogBox dbox = this.game.getDialogBox();
 
-            if(this.map.hasAttribute(ch, "msg"))
+            if(t.has("msg"))
             {
-                msg = this.map.getData(ch, "msg");
+                msg = t.get("msg");
                 dbox.setMessage(msg);
                 this.game.showDialog(true);
             }
