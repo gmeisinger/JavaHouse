@@ -57,7 +57,7 @@ public class TileSet
         }
     }
 
-    public Tile getTileAt(int row, int col)
+    public Tile getTileAt(int col, int row)
     {
         return tiles[col][row];
     }

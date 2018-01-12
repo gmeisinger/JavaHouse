@@ -9,6 +9,7 @@ import java.awt.GraphicsEnvironment;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javahouse.Canvas;
 import javahouse.Game;
@@ -34,14 +35,14 @@ public class DialogBox
     private boolean hasMore;
     private ArrayList<String> next;
     private final String MORE = "...";
-    //private ArrayList<String> varMap;
+    private HashMap<String,String> varMap;
 
     public DialogBox(Game game)
     {
         this.game = game;
         this.screenWidth = game.getFrameWidth();
         this.screenHeight = game.getFrameHeight(); 
-        this.fontSize = this.screenWidth/32; 
+        this.fontSize = this.screenWidth/40; 
         initialize();
     }
 
@@ -53,6 +54,7 @@ public class DialogBox
         this.height = this.screenHeight/4;
         this.box = new MenuBox(x, y, width, height);
         this.font = loadFont();
+        this.varMap = new HashMap<String,String>();
     }
 
     //setup font
@@ -65,11 +67,12 @@ public class DialogBox
             //Handle exception
         }
 
-        return new Font("Zig", Font.PLAIN, 24);
+        return new Font("Zig", Font.PLAIN, this.fontSize);
     }
 
     public void update()
     {
+        setVars();
         if(Canvas.isKeyHit(KeyEvent.VK_SPACE))
         {
             if(this.hasMoreText())
@@ -105,10 +108,10 @@ public class DialogBox
                 this.hasMore = true;
                 break;
             }*/
-            /*if(s.startsWith("|"))
+            if(s.startsWith("|"))
             {
                 s = varMap.get(s.substring(1));
-            }*/
+            }
             if(this.hasMore)
             {
                 g2d.drawString(this.MORE, this.x+(this.width/2) - (this.fm.stringWidth(this.MORE)/2), this.y+this.height-this.fm.getAscent());
@@ -173,6 +176,13 @@ public class DialogBox
     public void setVisible(boolean b)
     {
         this.visible = b;
+    }
+
+    public void setVars()
+    {
+        //time var
+        String time = Integer.toString(this.game.getRunTime());
+        this.varMap.put("time", time);
     }
 
     //MY GETTERS

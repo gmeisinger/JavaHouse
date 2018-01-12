@@ -17,7 +17,6 @@ public class TileMap
     private String mapFile;
     /**Specified tileSet for this map. */
     private TileSet ts;
-    private int tileSize;
     private int cols;
     private int rows;
 
@@ -88,6 +87,7 @@ public class TileMap
         this.cols = this.charMap.get(0).length();
         this.rows = this.charMap.size();
         this.map = new Tile[cols][rows];
+        buildMap();
     }
 
     /**Builds a 2d array of tiles
@@ -104,7 +104,8 @@ public class TileMap
                 String ch = String.valueOf(this.charMap.get(r).charAt(c));
                 if(this.key.containsKey(ch)) 
                 {
-                    t = getTileAt(getData(ch, "tile"));
+                    
+                    t = new Tile(getTileAt(getData(ch, "tile")));
                     if(this.key.get(ch).containsKey("wall") && !this.isWall(c, r+1))
                     {
                         t = getTileAt(getData(ch, "wall"));
@@ -114,6 +115,7 @@ public class TileMap
                     {
                         t.addImage(getTileAt(getData(ch, "over")).getImage());
                     }
+                    t.setDesc(this.key.get(ch));
                     this.map[c][r] = t;
                 }
             }
@@ -122,29 +124,12 @@ public class TileMap
 
     public void drawMap(Graphics2D g2d)
     {
-        Tile t;
-        for(int r=0;r<this.rows;r++)
+        for(int r=0; r<this.rows;r++)
         {
             for(int c=0;c<this.cols;c++)
             {
-                String ch = String.valueOf(this.charMap.get(r).charAt(c));
-                if(this.key.containsKey(ch)) 
-                {
-                    t = getTileAt(getData(ch, "tile"));
-                    t.draw(g2d, c*Game.TILE_SIZE, r*Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE);
-                    //walls
-                    if(this.key.get(ch).containsKey("wall") && !this.isWall(c, r+1))
-                    {
-                        t = getTileAt(getData(ch, "wall"));
-                        t.draw(g2d, c*Game.TILE_SIZE, r*Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE);
-                    }
-                    //tiles drawn onto other tiles
-                    if(this.key.get(ch).containsKey("over"))
-                    {
-                        t = getTileAt(getData(ch, "over"));
-                        t.draw(g2d, c*Game.TILE_SIZE, r*Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE);
-                    }
-                }
+                Tile t = this.map[c][r];
+                t.draw(g2d, c*Game.TILE_SIZE, r*Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE);
             }
         }
     }
@@ -179,24 +164,6 @@ public class TileMap
             }
         }
     }
-
-    //some helpers
-    public String getData(String section, String attribute)
-    {
-        return this.key.get(section).get(attribute);
-    }
-
-    //return tiles from whatever is stored in the tile attribute
-    //parses a string like "0,2"
-    public Tile getTileAt(String coordinate)
-    {
-        int row = Integer.parseInt(coordinate.replaceAll(",.*", ""));
-        int col = Integer.parseInt(coordinate.replaceAll(".*,", ""));
-        return ts.getTileAt(row, col);
-
-    }
-
-    
 
     //useful methods
     public boolean hasAttribute(int col, int row, String attribute)
@@ -258,6 +225,22 @@ public class TileMap
     public ArrayList<Npc> getNpcs()
     {
         return this.NpcSprites;
+    }
+
+    //some helpers
+    public String getData(String section, String attribute)
+    {
+        return this.key.get(section).get(attribute);
+    }
+
+    //return tiles from tileset, using coord stored in the tile attribute
+    //parses a string like "0,2"
+    public Tile getTileAt(String coordinate)
+    {
+        int row = Integer.parseInt(coordinate.replaceAll(",.*", ""));
+        int col = Integer.parseInt(coordinate.replaceAll(".*,", ""));
+        return ts.getTileAt(col, row);
+
     }
 
 }
