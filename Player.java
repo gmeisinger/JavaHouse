@@ -4,6 +4,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 import javahouse.Canvas;
 import javahouse.Game;
@@ -17,6 +18,7 @@ public class Player
     private Game game;
     private TileMap map;
     //inventory
+    private ArrayList<String> inventory;
     //knowledge inventory
 
     //LOCATION
@@ -36,6 +38,9 @@ public class Player
 
     private void initialize()
     {
+        //INVENTORY
+        this.inventory = new ArrayList<String>();
+        this.inventory.add("bedroom key");
         //ANIMATIONS
         BufferedImage[] animStanding = {this.sprite.getSprite(0, 0)};
         //BufferedImage[] animWalkLeft = {};
@@ -49,35 +54,24 @@ public class Player
 
     public void update()
     {
+        //check for map change
+        Tile currentTile = this.map.tileAtPoint(getLoc());
+        if(currentTile.has("portal"))
+        {
+            Point start = this.map.parsePoint(currentTile.get("start"));
+            start.x = start.x*Game.TILE_SIZE;
+            start.y = start.y*Game.TILE_SIZE;
+            this.game.setMap(currentTile.get("portal"), start);
+        }
+
+        //update animation
         animation.update();
         this.sprite.setSpriteImage(animation.getSprite());
 
         //INTERACT
         if(Canvas.isKeyHit(KeyEvent.VK_SPACE))
         {
-            Tile t = this.map.tileAtPoint(getLookingLoc());
-            String msg;
-            DialogBox dbox = this.game.getDialogBox();
-
-            if(t.has("msg"))
-            {
-                msg = t.get("msg");
-                dbox.setMessage(msg);
-                this.game.showDialog(true);
-            }
-            else
-            {
-                for(Npc npc : this.map.getNpcs())
-                {
-                    if(npc.getLoc().equals(this.getLookingLoc()))
-                    {
-                        msg = npc.getMessage();
-                        dbox.setMessage(msg);
-                        this.game.showDialog(true);
-                    }
-                }
-            }
-            
+            interact();   
         }
 
         //MOVEMENT
@@ -120,6 +114,71 @@ public class Player
         this.sprite.update();
     }
 
+    //Handles logic for interact button, used in update()
+    public void interact()
+    {
+        Tile t = this.map.tileAtPoint(getLookingLoc());
+        String msg;
+        DialogBox dbox = this.game.getDialogBox();
+
+        if(t.has("msg"))
+        {
+            msg = t.get("msg");
+            dbox.setMessage(msg);
+            this.game.showDialog(true);
+        }
+        else
+        {
+            for(Npc npc : this.map.getNpcs())
+            {
+                if(npc.getLoc().equals(this.getLookingLoc()))
+                {
+                    msg = npc.getMessage();
+                    dbox.setMessage(msg);
+                    this.game.showDialog(true);
+                }
+            }
+            if(this.map.hasDoors())
+                for(Door door : this.map.getDoors())
+                {
+                    if(door.getLoc().equals(this.getLookingLoc()))
+                    {
+                        doorCheck(door);
+                    }
+                }
+        }
+
+    }
+
+    //Handles door logic, used in interact
+    public void doorCheck(Door door)
+    {
+        if(door.isClosed() && door.isLocked())
+        {
+            DialogBox dbox = this.game.getDialogBox();
+            String key = door.getKey();
+            String msg;
+            if(this.hasItem(key))
+            {
+                door.setLocked(false);
+                door.setClosed(false);
+                msg = "You used the " + key + "!";
+                dbox.setMessage(msg);
+                this.game.showDialog(true);
+            }
+            else
+            {
+                msg = "The door is locked.";
+                dbox.setMessage(msg);
+                this.game.showDialog(true);
+            }
+        }
+        else if(door.isClosed())
+        {
+            door.setClosed(false);
+        }
+    }
+
     public void draw(Graphics2D g2d)
     {
         this.sprite.draw(g2d);
@@ -144,6 +203,17 @@ public class Player
         this.sprite.setSpriteY(p.y);
     }
 
+    public void stabilize()
+    {
+        this.sprite.setSafe(this.getLoc());
+    }
+
+    //set the map reference to the active map
+    public void setMap(TileMap tMap)
+    {
+        this.map = tMap;
+    }
+
     //MY GETTERS
 
     public Sprite getSprite()
@@ -164,5 +234,15 @@ public class Player
     public Point getLookingLoc()
     {
         return this.sprite.getLookingCoords();
+    }
+
+    public boolean hasItem(String item)
+    {
+        if(this.inventory.isEmpty()) return false;
+        if(this.inventory.contains(item))
+        {
+            return true;
+        }
+        else return false;
     }
 }

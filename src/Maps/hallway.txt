@@ -1,0 +1,28 @@
+    l1lll
+    l...l
+    l...l
+    l...l
+    l...l
+    l...l
+    l...l
+    l...l
+    l...l
+    l...l
+    lllll
+[settings]
+tileset = basictiles.png
+tilesize = 16
+[.]
+name = floor
+tile = 2,0
+[l]
+name = wall
+wall = 0,0
+block = true
+tile = 0,1
+[1]
+name = door
+door = 6,0
+tile = 6,2
+portal = bedroom
+start = 15,13

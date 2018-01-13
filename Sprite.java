@@ -222,6 +222,12 @@ public class Sprite
         this.target = new Point(lastSafeLoc.x, lastSafeLoc.y);
     }
 
+    //override safe location
+    public void setSafe(Point p)
+    {
+        this.lastSafeLoc = p.getLocation();
+    }
+
     //sets facing based on target
     public void setFacing()
     {

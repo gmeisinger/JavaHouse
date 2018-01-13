@@ -1,5 +1,5 @@
       lllblllllltlllllllll
-      lr.d...............l
+      lr.e...............l
       l...@..............l
       l..............k...l
       l..................l
@@ -12,7 +12,7 @@
       l..cccc............l
       l..................l
       l..................l
-      llllllllllllllllllll
+      lllllllllllllll1llll
 [settings]
 tileset = basictiles.png
 tilesize = 16
@@ -47,7 +47,7 @@ name = bed1
 tile = 0,0
 over = 5,5
 block = true
-[d]
+[e]
 name = bed2
 tile = 2,0
 over = 6,5
@@ -65,6 +65,14 @@ tile = 2,0
 over = 6,7
 block = true
 msg = Your dresser.
+[1]
+name = door
+door = 6,0
+tile = 6,2
+locked = true
+key = bedroom key
+portal = hallway
+start = 1,1
 [g]
 name = gussy
 sprite = gussy.png

@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
 
 import javahouse.Game;
 
@@ -19,6 +20,15 @@ public class TileMap
     private TileSet ts;
     private int cols;
     private int rows;
+    private boolean isInitialized = false;
+
+    //Below are the data structures used by the map to keep track of different objects
+
+    /**List of doors on map */
+    private ArrayList<Door> doors;
+
+    /**List of portals that lead to other maps */
+    //private ArrayList<Portal> portals;
 
     /**The list of npc sprites */
     private ArrayList<Npc> NpcSprites;
@@ -42,6 +52,8 @@ public class TileMap
         this.game = game;
         this.charMap = new ArrayList<String>();
         this.NpcSprites = new ArrayList<Npc>();
+        this.doors = new ArrayList<Door>();
+        //this.portals = new ArrayList<Portal>();
     }
 
     /**Reads the map in from .txt file, and sets up variables
@@ -88,6 +100,8 @@ public class TileMap
         this.rows = this.charMap.size();
         this.map = new Tile[cols][rows];
         buildMap();
+        loadSprites();
+        this.isInitialized = true;
     }
 
     /**Builds a 2d array of tiles
@@ -104,12 +118,31 @@ public class TileMap
                 String ch = String.valueOf(this.charMap.get(r).charAt(c));
                 if(this.key.containsKey(ch)) 
                 {
-                    
+                    HashMap<String,String> desc = this.key.get(ch);
                     t = new Tile(getTileAt(getData(ch, "tile")));
-                    if(this.key.get(ch).containsKey("wall") && !this.isWall(c, r+1))
+                    //walls
+                    if(desc.containsKey("wall") && !this.isWall(c, r+1))
                     {
                         t = getTileAt(getData(ch, "wall"));
                     }
+                    //doors
+                    if(desc.containsKey("door"))
+                    {
+                        Tile temp = getTileAt(getData(ch, "door")); 
+                        Door d = new Door(temp.getImage(), c, r);
+                        if(desc.containsKey("locked"))
+                        {
+                            d.setLocked(true);
+                            d.setKeyName(desc.get("key"));
+                        }
+                        this.doors.add(d);
+                    }
+                    /*Portals
+                    if(desc.containsKey("portal"))
+                    {
+                        Portal p = new Portal(c*Game.TILE_SIZE, r*Game.TILE_SIZE, desc.get())
+                    }*/
+
                     //tiles drawn onto other tiles
                     if(this.key.get(ch).containsKey("over"))
                     {
@@ -130,6 +163,18 @@ public class TileMap
             {
                 Tile t = this.map[c][r];
                 t.draw(g2d, c*Game.TILE_SIZE, r*Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE);
+            }
+        }
+        drawDoors(g2d);
+    }
+
+    public void drawDoors(Graphics2D g2d)
+    {
+        if(!this.doors.isEmpty())
+        {
+            for(Door d : this.doors)
+            {
+                d.draw(g2d);
             }
         }
     }
@@ -171,7 +216,6 @@ public class TileMap
     {
         return this.key.get(section).get(attribute);
     }
-
     //return tiles from tileset, using coord stored in the tile attribute
     //parses a string like "0,2"
     public Tile getTileAt(String coordinate)
@@ -181,8 +225,7 @@ public class TileMap
         return ts.getTileAt(col, row);
 
     }
-
-    //useful methods
+    //for use in this class, use Tile.has() outside of this
     public boolean hasAttribute(int col, int row, String attribute)
     {
         if(col < 0 || col>this.cols-1 || row < 0 || row>this.rows-1) {
@@ -193,12 +236,10 @@ public class TileMap
             return this.key.get(ch).containsKey(attribute);
         }
     }
-
     public boolean hasAttribute(String ch, String attribute)
     {
         return this.key.get(ch).containsKey(attribute);
     }
-
     public boolean isWall(int col, int row)
     {
         return hasAttribute(col, row, "wall");
@@ -220,20 +261,50 @@ public class TileMap
         return this.rows;
     }
 
+    public boolean isInit()
+    {
+        return this.isInitialized;
+    }
+
     public ArrayList<Npc> getNpcs()
     {
         return this.NpcSprites;
     }
 
+    public boolean hasDoors()
+    {
+        if(this.doors.isEmpty()) return false;
+        else return true;
+    }
+    public ArrayList<Door> getDoors()
+    {
+        return this.doors;
+    }
+
+    //this takes a string like 3,2 and returns a point (3,2)
+    public Point parsePoint(String s)
+    {
+        int x = Integer.parseInt(s.replaceAll(",.*", ""));
+        int y = Integer.parseInt(s.replaceAll(".*,", ""));
+        return new Point(x,y);
+    }
+
     //determines if the tile is safe to move to
     public boolean canBeMovedTo(Point p)
     {
-        Tile t = tileAtPoint(p);
+        Tile t;
+        try {
+            t = tileAtPoint(p);
+        } catch(IndexOutOfBoundsException e) {return false;}
         for(Npc npc : this.NpcSprites)
         {
             if(npc.getLoc().equals(p)) return false;
         }
-        if(t.getDesc().containsKey("block"))
+        for (Door door : doors)
+        {
+            if(p.equals(door.getLoc()) && door.isClosed()) return false;
+        }
+        if(t.has("block"))
             return false;
         else return true;
     }
@@ -242,8 +313,6 @@ public class TileMap
     {
         int col = p.x/Game.TILE_SIZE;
         int row = p.y/Game.TILE_SIZE;
-        //String ch = String.valueOf(this.charMap.get(row).charAt(col));
-        //return ch;
         return this.map[col][row];
     }
 
