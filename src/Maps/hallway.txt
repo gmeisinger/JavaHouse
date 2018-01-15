@@ -4,6 +4,14 @@
     l...l
     l...l
     l...l
+    3...4
+    l...l
+    l...l
+    l...l
+    l...l
+    l...l
+    5...6
+    l...l
     l...l
     l...l
     l...l
@@ -32,3 +40,27 @@ door = 6,0
 tile = 6,2
 locked = true
 key = hallway key
+[3]
+name = door
+door = 6,0
+tile = 6,2
+portal = hallroom1
+start = 7,4
+[4]
+name = door
+door = 6,0
+tile = 6,2
+portal = hallroom2
+start = 1,4
+[5]
+name = door
+door = 6,0
+tile = 6,2
+portal = hallroom3
+start = 7,2
+[6]
+name = door
+door = 6,0
+tile = 6,2
+portal = hallroom4
+start = 1,2

@@ -56,7 +56,7 @@ public class Player
     {
         //check for map change
         Tile currentTile = this.map.tileAtPoint(getLoc());
-        if(currentTile.has("portal"))
+        if(currentTile.has("portal") && !this.sprite.isMoving())
         {
             Point start = this.map.parsePoint(currentTile.get("start"));
             start.x = start.x*Game.TILE_SIZE;
