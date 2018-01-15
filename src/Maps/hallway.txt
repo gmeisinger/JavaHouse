@@ -1,4 +1,4 @@
-    l1lll
+    ll1ll
     l...l
     l...l
     l...l
@@ -8,7 +8,7 @@
     l...l
     l...l
     l...l
-    lllll
+    ll2ll
 [settings]
 tileset = basictiles.png
 tilesize = 16
@@ -26,3 +26,9 @@ door = 6,0
 tile = 6,2
 portal = bedroom
 start = 15,13
+[2]
+name = door
+door = 6,0
+tile = 6,2
+locked = true
+key = hallway key
