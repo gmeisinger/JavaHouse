@@ -206,6 +206,10 @@ public class Game {
         this.player.setMap(this.map);
         this.player.setLoc(startLoc);
         this.player.stabilize();
+        for(Door d : this.map.getDoors())
+        {
+            d.setClosed(true);
+        }
     }
 
     //MY GETTERS

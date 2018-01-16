@@ -40,7 +40,6 @@ public class Player
     {
         //INVENTORY
         this.inventory = new ArrayList<String>();
-        this.inventory.add("bedroom key");
         //ANIMATIONS
         BufferedImage[] animStanding = {this.sprite.getSprite(0, 0)};
         //BufferedImage[] animWalkLeft = {};
@@ -121,37 +120,50 @@ public class Player
         String msg;
         DialogBox dbox = this.game.getDialogBox();
 
+        for(Npc npc : this.map.getNpcs())
+        {
+            if(npc.getLoc().equals(this.getLookingLoc()))
+            {
+                msg = npc.getMessage();
+                dbox.setMessage(msg);
+                this.game.showDialog(true);
+                return;
+            }
+        }
+        for(Door door : this.map.getDoors())
+        {
+            if(door.getLoc().equals(this.getLookingLoc()))
+            {
+                doorCheck(door);
+                return;
+            }
+        }
+        for(Item item : this.map.getItems())
+        {
+            if(item.getLoc().equals(this.getLookingLoc()))
+            {
+                //get the item, remove it from list
+                this.inventory.add(item.getName());
+                this.map.removeItem(item);
+                //dialog
+                msg = "You found " + item.getName() + "!";
+                dbox.setMessage(msg);
+                this.game.showDialog(true);
+                return;
+            }
+        }
         if(t.has("msg"))
         {
             msg = t.get("msg");
             dbox.setMessage(msg);
             this.game.showDialog(true);
-        }
-        else
-        {
-            for(Npc npc : this.map.getNpcs())
-            {
-                if(npc.getLoc().equals(this.getLookingLoc()))
-                {
-                    msg = npc.getMessage();
-                    dbox.setMessage(msg);
-                    this.game.showDialog(true);
-                }
-            }
-            if(this.map.hasDoors())
-                for(Door door : this.map.getDoors())
-                {
-                    if(door.getLoc().equals(this.getLookingLoc()))
-                    {
-                        doorCheck(door);
-                    }
-                }
+            return;
         }
 
     }
 
     //Handles door logic, used in interact
-    public void doorCheck(Door door)
+    private void doorCheck(Door door)
     {
         if(door.isClosed() && door.isLocked())
         {

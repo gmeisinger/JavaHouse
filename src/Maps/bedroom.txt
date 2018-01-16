@@ -36,6 +36,9 @@ tile = 2,0
 over = 6,6
 block = true
 msg = A table.
+item = bedroom key
+sprite = key.png
+size = 32
 [h]
 name = chair
 tile = 2,0

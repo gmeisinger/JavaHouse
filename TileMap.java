@@ -24,6 +24,9 @@ public class TileMap
 
     //Below are the data structures used by the map to keep track of different objects
 
+    /**List of items on map */
+    private ArrayList<Item> items;
+
     /**List of doors on map */
     private ArrayList<Door> doors;
 
@@ -53,6 +56,7 @@ public class TileMap
         this.charMap = new ArrayList<String>();
         this.NpcSprites = new ArrayList<Npc>();
         this.doors = new ArrayList<Door>();
+        this.items = new ArrayList<Item>();
         //this.portals = new ArrayList<Portal>();
     }
 
@@ -137,11 +141,6 @@ public class TileMap
                         }
                         this.doors.add(d);
                     }
-                    /*Portals
-                    if(desc.containsKey("portal"))
-                    {
-                        Portal p = new Portal(c*Game.TILE_SIZE, r*Game.TILE_SIZE, desc.get())
-                    }*/
 
                     //tiles drawn onto other tiles
                     if(this.key.get(ch).containsKey("over"))
@@ -166,6 +165,7 @@ public class TileMap
             }
         }
         drawDoors(g2d);
+        drawItems(g2d);
     }
 
     public void drawDoors(Graphics2D g2d)
@@ -179,6 +179,17 @@ public class TileMap
         }
     }
 
+    public void drawItems(Graphics2D g2d)
+    {
+        if(!this.items.isEmpty())
+        {
+            for(Item i : this.items)
+            {
+                i.draw(g2d);
+            }
+        }
+    }
+
     public void loadSprites()
     {
         for(int r=0;r<this.rows;r++)
@@ -186,23 +197,29 @@ public class TileMap
             for(int c=0;c<this.cols;c++)
             {
                 String ch = String.valueOf(this.charMap.get(r).charAt(c));
-                if(this.key.get(ch).containsKey("sprite"))
+                HashMap<String,String> desc = this.key.get(ch);
+                if(desc.containsKey("sprite"))
                 {
                     Sprite s = new Sprite(c*Game.TILE_SIZE, r*Game.TILE_SIZE, Integer.parseInt(getData(ch, "size")), getData(ch, "sprite"));
                     //this.game.addSprite(s);
                     //custom facing
-                    if(this.key.get(ch).containsKey("facing")) s.setFacing(getData(ch, "facing"));
+                    if(desc.containsKey("facing")) s.setFacing(getData(ch, "facing"));
                     //set player
-                    if(this.key.get(ch).containsKey("player")) 
+                    if(desc.containsKey("player")) 
                     {
                         game.setPlayer(new Player(s, this.game));
                     }
                     //the map will keep the list of its sprites
-                    else if(this.key.get(ch).containsKey("npc"))
+                    else if(desc.containsKey("npc"))
                     {
                         Npc npc = new Npc(s, this.game);
                         npc.setMessage(getData(ch, "npcMsg"));
                         this.NpcSprites.add(npc);
+                    }
+                    else if(desc.containsKey("item"))
+                    {
+                        Item item = new Item(c, r, desc.get("item"), s);
+                        this.items.add(item);
                     }
 
                 }
@@ -212,13 +229,13 @@ public class TileMap
 
     //CLASS HELPERS
     //some helpers
-    public String getData(String section, String attribute)
+    private String getData(String section, String attribute)
     {
         return this.key.get(section).get(attribute);
     }
     //return tiles from tileset, using coord stored in the tile attribute
     //parses a string like "0,2"
-    public Tile getTileAt(String coordinate)
+    private Tile getTileAt(String coordinate)
     {
         int row = Integer.parseInt(coordinate.replaceAll(",.*", ""));
         int col = Integer.parseInt(coordinate.replaceAll(".*,", ""));
@@ -226,7 +243,7 @@ public class TileMap
 
     }
     //for use in this class, use Tile.has() outside of this
-    public boolean hasAttribute(int col, int row, String attribute)
+    private boolean hasAttribute(int col, int row, String attribute)
     {
         if(col < 0 || col>this.cols-1 || row < 0 || row>this.rows-1) {
             return false;
@@ -236,20 +253,25 @@ public class TileMap
             return this.key.get(ch).containsKey(attribute);
         }
     }
-    public boolean hasAttribute(String ch, String attribute)
+    private boolean hasAttribute(String ch, String attribute)
     {
         return this.key.get(ch).containsKey(attribute);
     }
-    public boolean isWall(int col, int row)
+    private boolean isWall(int col, int row)
     {
         return hasAttribute(col, row, "wall");
     }
-    public boolean isBlocking(int col, int row)
+    private boolean isBlocking(int col, int row)
     {
         return hasAttribute(col, row, "block");
     }
 
-    
+    //MY SETTERS
+    public void removeItem(Item i)
+    {
+        if(this.items.contains(i))
+            this.items.remove(i);
+    }
 
     //MY GETTERS
     public int getCols()
@@ -279,6 +301,11 @@ public class TileMap
     public ArrayList<Door> getDoors()
     {
         return this.doors;
+    }
+
+    public ArrayList<Item> getItems()
+    {
+        return this.items;
     }
 
     //this takes a string like 3,2 and returns a point (3,2)
