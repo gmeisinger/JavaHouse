@@ -1,34 +1,5 @@
-RECENT ADDITIONS
+To Do:
 
-    -dialogBox is working, npc messages
-    -Npc class is written, holds messages
-    -TileMap now holds its own arraylist of npcs (will hold any map-specific data like items)
-
-    -player is animated
-    -camera is implemented, tilesize bumped to 64 to show it off
-
-TODO
-
-    TileMap.java
-        -redesign to use a 2d array of tiles as main data structure
-        -could hold a second array (or hashmap<Point,Tile>) for overlay tiles (bed, chair)
-            so that draw() will iterate over tile array, then draw the overlays 
-
-    Tile.java
-        -will hold tile info such as isBlocking, hasSprite, etc.
-
-NEXT MILESTONE
-
-    -implement map transitions
-        -multiple possible player starting tiles
-    -simpler TileMap data access
-
-LONG TERM NOTES
-    
-    -Sprite.java needs to be re-written
-    
-    -will begin building parent classes for UI
-        -game menus
-        -dialog box
-        -action menu
-        -inventory
+	fill up empty rooms!
+	
+	make art!
