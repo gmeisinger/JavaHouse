@@ -1,12 +1,12 @@
-package javahouse;
+package JavaHouse;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-import javahouse.Game;
-import javahouse.Sprite;
-import javahouse.TileMap;
+import JavaHouse.Game;
+import JavaHouse.Sprite;
+import JavaHouse.TileMap;
 
 public class Npc
 {

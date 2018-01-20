@@ -1,4 +1,4 @@
-package javahouse;
+package JavaHouse;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -8,7 +8,7 @@ import java.awt.Point;
 
 import javax.imageio.ImageIO;
 
-import javahouse.Game;
+import JavaHouse.Game;
 
 public class Sprite
 {
@@ -43,7 +43,7 @@ public class Sprite
         this.spriteWidth = spriteSize;
         this.spriteHeight = spriteSize;
         //filename
-        this.fileName = "javahouse/src/Sprites/"+file;
+        this.fileName = "JavaHouse/src/Sprites/"+file;
         //make sure theres no target problems
         this.target = new Point(x,y);      
         //this keeps track of facing for display purposes

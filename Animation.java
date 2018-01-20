@@ -1,5 +1,5 @@
-package javahouse;
-import javahouse.Frame;
+package JavaHouse;
+import JavaHouse.Frame;
 
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;

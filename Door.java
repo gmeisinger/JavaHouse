@@ -1,11 +1,11 @@
-package javahouse;
+package JavaHouse;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-import javahouse.Game;
-import javahouse.Tile;
+import JavaHouse.Game;
+import JavaHouse.Tile;
 
 public class Door
 {

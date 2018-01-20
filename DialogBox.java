@@ -1,4 +1,4 @@
-package javahouse;
+package JavaHouse;
 
 import java.io.File;
 import java.awt.Font;
@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import javahouse.Canvas;
-import javahouse.Game;
+import JavaHouse.Canvas;
+import JavaHouse.Game;
 
 public class DialogBox
 {

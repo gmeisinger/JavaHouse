@@ -1,9 +1,9 @@
-package javahouse;
+package JavaHouse;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
 
-import javahouse.Sprite;
+import JavaHouse.Sprite;
 
 public class Item
 {

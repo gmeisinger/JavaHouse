@@ -1,4 +1,4 @@
-package javahouse;
+package JavaHouse;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -9,7 +9,7 @@ import java.util.Scanner;
 import java.awt.Point;
 import java.awt.image.BufferedImage;
 
-import javahouse.Game;
+import JavaHouse.Game;
 
 public class TileMap
 {
@@ -51,7 +51,7 @@ public class TileMap
     //constructor
     public TileMap(String mapFile, Game game)
     {
-        this.mapFile = "javahouse/src/Maps/"+mapFile;
+        this.mapFile = "JavaHouse/src/Maps/"+mapFile;
         this.game = game;
         this.charMap = new ArrayList<String>();
         this.NpcSprites = new ArrayList<Npc>();
@@ -97,7 +97,7 @@ public class TileMap
         }
         scan.close();
         //get some settings from the key
-        String tileSetFile = "/javahouse/src/Tiles/"+getData("settings", "tileset");
+        String tileSetFile = "/JavaHouse/src/Tiles/"+getData("settings", "tileset");
         int tsTileSize = Integer.parseInt(getData("settings", "tilesize"));
         this.ts = new TileSet(tileSetFile, tsTileSize, tsTileSize);
         this.cols = this.charMap.get(0).length();

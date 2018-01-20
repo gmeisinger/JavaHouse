@@ -1,4 +1,4 @@
-package javahouse;
+package JavaHouse;
 
 import java.awt.image.BufferedImage;
 

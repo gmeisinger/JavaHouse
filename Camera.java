@@ -1,10 +1,10 @@
-package javahouse;
+package JavaHouse;
 
 import java.awt.Point;
 
-import javahouse.Game;
-import javahouse.Sprite;
-import javahouse.TileMap;
+import JavaHouse.Game;
+import JavaHouse.Sprite;
+import JavaHouse.TileMap;
 
 public class Camera
 {

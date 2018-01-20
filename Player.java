@@ -1,4 +1,4 @@
-package javahouse;
+package JavaHouse;
 
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -6,9 +6,9 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import javahouse.Canvas;
-import javahouse.Game;
-import javahouse.TileMap;
+import JavaHouse.Canvas;
+import JavaHouse.Game;
+import JavaHouse.TileMap;
 
 public class Player
 {

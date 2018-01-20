@@ -7,8 +7,8 @@
       lllllllll...llllllll
       l..................l
       l..cccc............l
-      l..caac.......h.h..l
-      l..cagc........o...l
+      l..caac............l
+      l..cagc.......hoi..l
       l..cccc............l
       l..................l
       l..................l
@@ -40,9 +40,15 @@ item = bedroom key
 sprite = key.png
 size = 32
 [h]
-name = chair
+name = chair right
 tile = 2,0
-over = 5,6
+over = 10,3
+block = true
+msg = A chair.
+[i]
+name = chair left
+tile = 2,0
+over = 10,4
 block = true
 msg = A chair.
 [b]
