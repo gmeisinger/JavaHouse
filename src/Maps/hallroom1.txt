@@ -37,6 +37,7 @@ msg = Some old books left by the previous owners.
 name = alchemy table
 tile = 2,0
 over = 9,4
+block = true
 msg = Lots of weird stuff scattered around the table.
 [O]
 name = table

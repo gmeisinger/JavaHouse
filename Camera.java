@@ -64,7 +64,7 @@ public class Camera
         camX = targetLoc.x - viewPortX / 2;
         camY = targetLoc.y - viewPortY / 2;
 
-        /*check offsets
+        //check offsets
         if (camX > offsetMaxX)
         {
             camX = offsetMaxX;
@@ -85,11 +85,11 @@ public class Camera
         //small room bugfix
         if(worldSizeX < viewPortX)
         {
-            camX = -worldSizeX/4;
+            camX = -viewPortX/2 + worldSizeX/2;
         }
         if(worldSizeY < viewPortY)
         {
-            camY = -worldSizeY/4;
-        }*/
+            camY = -viewPortY/2 + worldSizeY/2;
+        }
     }
 }

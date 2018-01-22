@@ -116,12 +116,12 @@ name = player
 tile = 2,0
 sprite = meSheet.png
 player = true
-size = 16
+size = 32
 [k]
 name = beeb
 tile = 2,0
 sprite = beebSheet.png
-size = 16
+size = 32
 npc = true
 npcMsg = Hi beeb! Don't forget, you're supposed to play with Gussy before you leave!
 facing = left

@@ -28,6 +28,7 @@ public class Player
     //ANIMATIONS
     private Animation standing;
     private Animation walking;
+    private Animation hooray;
 
     //constructor
     public Player(Sprite s, Game game)
@@ -46,10 +47,12 @@ public class Player
         //ANIMATIONS
         BufferedImage[] animStanding = {this.sprite.getSprite(0, 0)};
         //BufferedImage[] animWalkLeft = {};
-        BufferedImage[] animWalkRight = {this.sprite.getSprite(0, 1), this.sprite.getSprite(1, 1)};
+        BufferedImage[] animWalkRight = {this.sprite.getSprite(1, 0), this.sprite.getSprite(2, 0)};
+        BufferedImage[] animHooray = {this.sprite.getSprite(3,0)};
 
         this.standing = new Animation(animStanding, 2);
         this.walking = new Animation(animWalkRight, 2);
+        this.hooray = new Animation(animHooray, 2);
 
         this.animation = standing;
     }
@@ -77,19 +80,19 @@ public class Player
         }
 
         //MOVEMENT
-        if (Canvas.isKeyHit(KeyEvent.VK_DOWN))
+        if (Canvas.keyboardKeyState(KeyEvent.VK_DOWN))
         {
             this.sprite.setMoveTarget(0, Game.TILE_SIZE);
         }
-        if (Canvas.isKeyHit(KeyEvent.VK_RIGHT))
+        if (Canvas.keyboardKeyState(KeyEvent.VK_RIGHT))
         {
             this.sprite.setMoveTarget(Game.TILE_SIZE, 0);
         }
-        if (Canvas.isKeyHit(KeyEvent.VK_LEFT))
+        if (Canvas.keyboardKeyState(KeyEvent.VK_LEFT))
         {
             this.sprite.setMoveTarget(-Game.TILE_SIZE, 0);
         }
-        if (Canvas.isKeyHit(KeyEvent.VK_UP))
+        if (Canvas.keyboardKeyState(KeyEvent.VK_UP))
         {
             this.sprite.setMoveTarget(0, -Game.TILE_SIZE);
         }
@@ -123,10 +126,13 @@ public class Player
         String msg;
         DialogBox dbox = this.game.getDialogBox();
 
-        if(t.has("knowledge"))
-        {
-            this.knowledge.put(t.get("knowledge"), t.get("kmsg"));
-        }
+        /*The following is a priority system for interacting
+        with the environment. it checks for player knowledge if
+        needed, then checks for interactable things. if there is
+        nothing, then it displays the description of the tile. if
+        that is not available, it does nothing.*/
+
+        //if you don't have knowledge, default to desc msg
         if(t.has("kcheck"))
         {
             if(!this.knowledge.containsKey(t.get("kcheck")))
@@ -137,6 +143,12 @@ public class Player
                 return;
             }
         }
+        //gain knowledge if available
+        if(t.has("knowledge"))
+        {
+            this.knowledge.put(t.get("knowledge"), t.get("kmsg"));
+        }
+        //talk to npcs
         for(Npc npc : this.map.getNpcs())
         {
             if(npc.getLoc().equals(this.getLookingLoc()))
@@ -147,6 +159,7 @@ public class Player
                 return;
             }
         }
+        //open doors
         for(Door door : this.map.getDoors())
         {
             if(door.getLoc().equals(this.getLookingLoc()))
@@ -155,10 +168,14 @@ public class Player
                 return;
             }
         }
+        //get items
         for(Item item : this.map.getItems())
         {
             if(item.getLoc().equals(this.getLookingLoc()))
             {
+                this.animation = this.hooray;
+                this.animation.update();
+                this.sprite.setSpriteImage(animation.getSprite());
                 //get the item, remove it from list
                 this.inventory.add(item.getName());
                 this.map.removeItem(item);
@@ -171,6 +188,7 @@ public class Player
                 return;
             }
         }
+        //default to the tile message if nothing else is available
         if(t.has("msg"))
         {
             msg = t.get("msg");

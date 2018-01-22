@@ -210,6 +210,7 @@ public class Game {
         {
             d.setClosed(true);
         }
+        this.camera.initialize();
     }
 
     //MY GETTERS

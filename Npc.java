@@ -34,7 +34,7 @@ public class Npc
         //ANIMATIONS
         BufferedImage[] animStanding = {this.sprite.getSprite(0, 0)};
         //BufferedImage[] animWalkLeft = {};
-        BufferedImage[] animWalkRight = {this.sprite.getSprite(0, 1), this.sprite.getSprite(1, 1)};
+        BufferedImage[] animWalkRight = {this.sprite.getSprite(1, 0), this.sprite.getSprite(2, 0)};
 
         this.standing = new Animation(animStanding, 2);
         this.walking = new Animation(animWalkRight, 2);
