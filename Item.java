@@ -20,6 +20,7 @@ public class Item
         initialize();
     }
 
+
     public void initialize()
     {
         setLoc(this.loc);

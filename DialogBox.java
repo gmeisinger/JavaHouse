@@ -137,6 +137,13 @@ public class DialogBox
                     this.hasMore = true;
                     break;
                 }
+                //similarly, if we need a new box
+                if (s.equals("\\n"))
+                {
+                    this.next = new ArrayList<String>(this.msg.subList(this.msg.indexOf(s) + 1, this.msg.size()));
+                    this.hasMore = true;
+                    break;
+                }
                 else
                 {
                     g2d.drawString(s, xCoord, yCoord);

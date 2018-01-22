@@ -1,9 +1,9 @@
-    lllllllll
-    l.......l
-    1.......l
-    l.......l
-    l.......l
-    l.......l
+    llBtltlll
+    l......ol
+    1.ccccc.l
+    l.caaac.l
+    l.ccccc.l
+    lp....ppl
     lllllllll
 [settings]
 tileset = basictiles.png
@@ -16,6 +16,36 @@ name = wall
 wall = 0,0
 block = true
 tile = 0,1
+[c]
+name = carpetE
+tile = 2,1
+[a]
+name = carpetM
+tile = 1,1
+[o]
+name = table
+tile = 2,0
+over = 6,6
+over2 = 3,5
+block = true
+knowledge = King Gus Portrait
+kmsg = I found a note left on a table. It said "Remember, I hid it behind the picture of King Gus."
+msg = There's a note here: \n "Remember, I hid it behind the picture of King Gus."
+[t]
+name = torch
+tile = 0,0
+over = 7,7
+block = true
+[B]
+name = bookcase
+tile = 0,0
+over = 13,0
+block = true
+[p]
+name = pot
+tile = 2,0
+over = 3,3
+block = true
 [1]
 name = door
 door = 6,0

@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import JavaHouse.Canvas;
 import JavaHouse.Game;
@@ -20,6 +21,7 @@ public class Player
     //inventory
     private ArrayList<String> inventory;
     //knowledge inventory
+    private HashMap<String,String> knowledge;
 
     //LOCATION
 
@@ -40,6 +42,7 @@ public class Player
     {
         //INVENTORY
         this.inventory = new ArrayList<String>();
+        this.knowledge = new HashMap<String,String>();
         //ANIMATIONS
         BufferedImage[] animStanding = {this.sprite.getSprite(0, 0)};
         //BufferedImage[] animWalkLeft = {};
@@ -120,6 +123,20 @@ public class Player
         String msg;
         DialogBox dbox = this.game.getDialogBox();
 
+        if(t.has("knowledge"))
+        {
+            this.knowledge.put(t.get("knowledge"), t.get("kmsg"));
+        }
+        if(t.has("kcheck"))
+        {
+            if(!this.knowledge.containsKey(t.get("kcheck")))
+            {
+                msg = t.get("msg");
+                dbox.setMessage(msg);
+                this.game.showDialog(true);
+                return;
+            }
+        }
         for(Npc npc : this.map.getNpcs())
         {
             if(npc.getLoc().equals(this.getLookingLoc()))
@@ -147,6 +164,8 @@ public class Player
                 this.map.removeItem(item);
                 //dialog
                 msg = "You found " + item.getName() + "!";
+                if(t.has("kcheckmsg"))
+                    msg = t.get("kcheckmsg") + " \\n " + msg;
                 dbox.setMessage(msg);
                 this.game.showDialog(true);
                 return;
@@ -252,6 +271,16 @@ public class Player
     {
         if(this.inventory.isEmpty()) return false;
         if(this.inventory.contains(item))
+        {
+            return true;
+        }
+        else return false;
+    }
+
+    public boolean hasKnowledge(String knowledge)
+    {
+        if(this.knowledge.isEmpty()) return false;
+        if(this.knowledge.containsKey(knowledge))
         {
             return true;
         }

@@ -1,9 +1,9 @@
-    lllllllll
+    lBKtltlll
+    l......pl
     l.......l
-    l.......l
-    l.......l
+    l..hoi..l
     1.......l
-    l.......l
+    l......pl
     lllllllll
 [settings]
 tileset = basictiles.png
@@ -16,6 +16,41 @@ name = wall
 wall = 0,0
 block = true
 tile = 0,1
+[t]
+name = torch
+tile = 0,0
+over = 7,7
+block = true
+[B]
+name = bookcase
+tile = 0,0
+over = 13,0
+block = true
+[K]
+name = bookcase 2
+tile = 0,0
+over = 13,1
+block = true
+[o]
+name = table
+tile = 2,0
+over = 6,6
+block = true
+[h]
+name = chair right
+tile = 2,0
+over = 10,3
+block = true
+[i]
+name = chair left
+tile = 2,0
+over = 10,4
+block = true
+[p]
+name = pot
+tile = 2,0
+over = 3,3
+block = true
 [1]
 name = door
 door = 6,0

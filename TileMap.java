@@ -125,7 +125,7 @@ public class TileMap
                     HashMap<String,String> desc = this.key.get(ch);
                     t = new Tile(getTileAt(getData(ch, "tile")));
                     //walls
-                    if(desc.containsKey("wall") && !this.isWall(c, r+1))
+                    if(desc.containsKey("wall") && !this.isWall(c, r+1) && !this.hasAttribute(c, r+1, "door"))
                     {
                         t = getTileAt(getData(ch, "wall"));
                     }
@@ -146,6 +146,10 @@ public class TileMap
                     if(this.key.get(ch).containsKey("over"))
                     {
                         t.addImage(getTileAt(getData(ch, "over")).getImage());
+                    }
+                    if(this.key.get(ch).containsKey("over2"))
+                    {
+                        t.addImage(getTileAt(getData(ch, "over2")).getImage());
                     }
                     t.setDesc(this.key.get(ch));
                     this.map[c][r] = t;

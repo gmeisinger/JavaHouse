@@ -3,3 +3,9 @@ To Do:
 	fill up empty rooms!
 	
 	make art!
+
+	Push object mechanic
+
+	ui's
+		inventory
+		journal

@@ -1,8 +1,8 @@
-    lllllllll
-    l.......l
-    l.......l
-    l.......l
-    l.......1
+    lBltPtlll
+    l......Al
+    lh.ccc..l
+    lO.cac..l
+    l..ccc..1
     l.......l
     lllllllll
 [settings]
@@ -16,6 +16,48 @@ name = wall
 wall = 0,0
 block = true
 tile = 0,1
+[c]
+name = carpetE
+tile = 2,1
+[a]
+name = carpetM
+tile = 1,1
+[t]
+name = torch
+tile = 0,0
+over = 7,7
+block = true
+[B]
+name = bookcase
+tile = 0,0
+over = 13,0
+block = true
+msg = Some old books left by the previous owners.
+[A]
+name = alchemy table
+tile = 2,0
+over = 9,4
+msg = Lots of weird stuff scattered around the table.
+[O]
+name = table
+tile = 2,0
+over = 6,6
+block = true
+[h]
+name = chair
+tile = 2,0
+over = 10,5
+block = true
+[P]
+name = gus portrait
+tile = 0,0
+block = true
+kcheck = King Gus Portrait
+kcheckmsg = There's something behind the portrait...
+msg = A portrait of a very regal looking dog.
+item = hallway key
+sprite = invis.png
+size = 16
 [1]
 name = door
 door = 6,0

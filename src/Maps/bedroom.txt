@@ -1,10 +1,10 @@
-      lllblllllltlllllllll
-      lr.e...............l
+      lllblllllltlllBTKlll
+      lr.e.............Oil
       l...@..............l
       l..............k...l
       l..................l
       l..................l
-      lllllllll...llllllll
+      llllllllT...Tlllllll
       l..................l
       l..cccc............l
       l..caac............l
@@ -30,6 +30,11 @@ tile = 2,1
 [a]
 name = carpetM
 tile = 1,1
+[T]
+name = torch
+tile = 0,0
+over = 7,7
+block = true
 [o]
 name = table
 tile = 2,0
@@ -39,6 +44,23 @@ msg = A table.
 item = bedroom key
 sprite = key.png
 size = 32
+[O]
+name = table
+tile = 2,0
+over = 6,6
+block = true
+[B]
+name = bookcase 1
+tile = 0,0
+over = 13,0
+block = true
+msg = All of your favorite sci-fi novels are here collecting dust.
+[K]
+name = bookcase 2
+tile = 0,0
+over = 13,1
+block = true
+msg = Day 243: \n "We're leaving. The basement door is locked tight but Heather still can't sleep. Her night terrors have only gotten worse. After the dog ran away I started getting a bad feeling about..." \n The rest of the pages have been torn out. Where did this come from?
 [h]
 name = chair right
 tile = 2,0
