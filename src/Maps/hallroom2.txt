@@ -1,4 +1,4 @@
-    lBKtltlll
+    lBKtPtlll
     l......pl
     l.......l
     l..hoi..l
@@ -51,6 +51,12 @@ name = pot
 tile = 2,0
 over = 3,3
 block = true
+[P]
+name = gus portrait
+tile = 0,0
+over = 3,0
+block = true
+msg = A portait of a king.
 [1]
 name = door
 door = 6,0

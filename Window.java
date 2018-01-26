@@ -17,7 +17,7 @@ public class Window extends JFrame{
         this.setTitle("The House");
         
         // Sets size of the frame.
-        if(false) // Full screen mode
+        if(true) // Full screen mode
         {
             // Disables decorations for this frame.
             this.setUndecorated(true);
@@ -27,7 +27,7 @@ public class Window extends JFrame{
         else // Window mode
         {
             // Size of the frame.
-            this.setSize(1024, 768);
+            this.setSize(800, 600);
             // Puts frame to center of the screen.
             this.setLocationRelativeTo(null);
             // So that frame cannot be resizable by the user.

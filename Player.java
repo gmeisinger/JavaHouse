@@ -250,12 +250,14 @@ public class Player
     {
         this.sprite.setSpriteX(p.x);
         this.sprite.setSpriteY(p.y);
+        this.sprite.setSafe(p);
+        this.sprite.cancelTarget();
     }
 
-    public void stabilize()
+    /*public void stabilize()
     {
         this.sprite.setSafe(this.getLoc());
-    }
+    }*/
 
     //set the map reference to the active map
     public void setMap(TileMap tMap)

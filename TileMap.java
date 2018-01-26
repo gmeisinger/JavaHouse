@@ -36,6 +36,9 @@ public class TileMap
     /**The list of npc sprites */
     private ArrayList<Npc> NpcSprites;
 
+    /**list of things drawn over the player like pillars*/
+    private Tile[][] overlays;
+
     /**The map, stored in an array list of strings */
     private ArrayList<String> charMap;
     /**The map data, stored in a map where strings are paired to hash maps
@@ -103,6 +106,7 @@ public class TileMap
         this.cols = this.charMap.get(0).length();
         this.rows = this.charMap.size();
         this.map = new Tile[cols][rows];
+        this.overlays = new Tile[cols][rows];
         buildMap();
         loadSprites();
         this.isInitialized = true;
@@ -151,6 +155,11 @@ public class TileMap
                     {
                         t.addImage(getTileAt(getData(ch, "over2")).getImage());
                     }
+                    if(this.key.get(ch).containsKey("overlay"))
+                    {
+                        Tile overlay = new Tile(getTileAt(getData(ch, "overlay")));
+                        this.overlays[c][r] = overlay;
+                    }
                     t.setDesc(this.key.get(ch));
                     this.map[c][r] = t;
                 }
@@ -170,6 +179,20 @@ public class TileMap
         }
         drawDoors(g2d);
         drawItems(g2d);
+    }
+    public void drawOverlays(Graphics2D g2d)
+    {
+        for(int r=0; r<this.rows;r++)
+        {
+            for(int c=0;c<this.cols;c++)
+            {
+                if(this.overlays[c][r] != null)
+                {
+                    Tile t = this.overlays[c][r];
+                    t.draw(g2d, c*Game.TILE_SIZE, r*Game.TILE_SIZE, Game.TILE_SIZE, Game.TILE_SIZE);
+                }
+            }
+        }
     }
 
     public void drawDoors(Graphics2D g2d)
@@ -218,6 +241,13 @@ public class TileMap
                     {
                         Npc npc = new Npc(s, this.game);
                         npc.setMessage(getData(ch, "npcMsg"));
+                        if(desc.containsKey("wander"))
+                            npc.setWander(Integer.parseInt(desc.get("wander")));
+                        if(desc.containsKey("wanderX"))
+                            npc.setWander(Integer.parseInt(desc.get("wanderX")), 0);
+                        if(desc.containsKey("wanderY"))
+                            npc.setWander(0, Integer.parseInt(desc.get("wanderY")));
+
                         this.NpcSprites.add(npc);
                     }
                     else if(desc.containsKey("item"))

@@ -6,11 +6,11 @@
       l..................l
       llllllllT...Tlllllll
       l..................l
-      l..cccc............l
-      l..caac............l
-      l..cagc.......hoi..l
-      l..cccc............l
-      l..................l
+      l..ccccc...........l
+      l..caaac...........l
+      l..cagac......hoi..l
+      l..caaac...........l
+      l..ccccc...........l
       l..................l
       lllllllllllllll1llll
 [settings]
@@ -111,12 +111,7 @@ size = 0
 npc = true
 tile = 1,1
 npcMsg = Woof!
-[@]
-name = player
-tile = 2,0
-sprite = meSheet.png
-player = true
-size = 32
+wander = 1
 [k]
 name = beeb
 tile = 2,0
@@ -125,3 +120,9 @@ size = 32
 npc = true
 npcMsg = Hi beeb! Don't forget, you're supposed to play with Gussy before you leave!
 facing = left
+[@]
+name = player
+tile = 2,0
+sprite = meSheet.png
+player = true
+size = 32

@@ -9,3 +9,8 @@ To Do:
 	ui's
 		inventory
 		journal
+
+Framework:
+	player and sprite both have a lot of redundant code
+	sprite needs to be simplified, give the work to npc and player
+	please for the love of god refactor sprite and get inheritance to work

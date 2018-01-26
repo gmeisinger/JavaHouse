@@ -1,0 +1,117 @@
+    lltll2lltllltllltllltlllttllltllltllltllltll1lltll
+    l...cac.@..................................cac...l
+    l.cccaccccccccccccccccccccccccccccccccccccccaccc.l
+    l.caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac.l
+    l.cccccccccccccccccccaaaaaaaaccccccccccccccccccc.l
+    l...................caaaaaaaac...................l
+    lllllllllllllllllllllsssssssslllllllllllllllllllll
+    lwwwwwwwwwwwwwwwwwwwlsssssssslwwwwwwwwwwwwwwwwwwwl
+    lwwwwwwwwwwwwwww4wwwlsssssssslwww3wwwwwwwwwwwwwwwl
+    l...................lssssssssl...................l
+    l...................lssssssssl...................l
+    l...................lssssssssl...................l
+    l.....i........i....lssssssssl....i........i.....l
+    l.....I........I....lssssssssl....I........I.....l
+    l.....p........p....lssssssssl....p........p.....l
+    l...................lssssssssl...................l
+    l..............i.....caaaaaac.....i..............l
+    l..............I.....caaaaaac.....I..............l
+    l..............p.....caaaaaac.....p..............l
+    l....................caaaaaac....................l
+    l..............i.....caaaaaac.....i..............l
+    l..............I.....caaaaaac.....I..............l
+    l..............p.....caaaaaac.....p..............l
+    l....................caaaaaac....................l
+    l..............i.....caaaaaac.....i..............l
+    l..............I.....caaaaaac.....I..............l
+    l..............p.....caaaaaac.....p..............l
+    l....................caaaaaac....................l
+    l..............i.....caaaaaac.....P..............l
+    l..............I.....caaaaaac.....I..............l
+    l..............p.....caaaaaac.....p..............l
+    l....................caaaaaac....................l
+    l....................caaaaaac....................l
+    l....................caaaaaac....................l
+    l....................caaaaaac....................l
+    llllllllllllllllllllllllllllllllllllllllllllllllll
+[settings]
+tileset = basictiles.png
+tilesize = 16
+[.]
+name = floor
+tile = 2,0
+[l]
+name = wall
+wall = 0,0
+block = true
+tile = 0,1
+[w]
+name = lower wall
+tile = 0,3
+block = true
+[c]
+name = carpetE
+tile = 2,1
+[s]
+name = stair
+tile = 4,0
+[a]
+name = carpetM
+tile = 1,1
+[t]
+name = torch
+tile = 0,0
+over = 7,7
+block = true
+[p]
+name = pillar base
+tile = 2,0
+over = 13,3
+block = true
+[I]
+name = pillar mid
+tile = 2,0
+overlay = 12,3
+[i]
+name = pillar top
+tile = 2,0
+overlay = 11,3
+[1]
+name = library door
+door = 6,0
+tile = 6,2
+locked = true
+key = library key
+[2]
+name = hallway door
+door = 6,0
+tile = 6,2
+portal = hallway
+start = 2,17
+[3]
+name = basement door
+door = 6,0
+tile = 6,2
+locked = true
+key = basement key
+[4]
+name = kitchen door
+door = 6,0
+tile = 6,2
+locked = true
+key = kitchen key
+[P]
+name = paleface
+tile = 2,0
+overlay = 11,3
+sprite = paleface.png
+size = 16
+npc = true
+npcMsg = Hey! Shhh!!!! \n Don't tell anyone I'm here and I'll tell you a secret! \n There's something in the basement! I saw it! \n Gotta get outta here...
+wanderY = 1
+[@]
+name = player
+tile = 2,0
+sprite = meSheet.png
+player = true
+size = 32
