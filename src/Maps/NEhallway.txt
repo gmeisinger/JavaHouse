@@ -1,0 +1,86 @@
+    lt1tl
+    l...l
+    l...l
+    l...l
+    l...l
+    lT.Hl
+    3...4
+    lT.Hl
+    l...l
+    l...l
+    l...l
+    lT.Hl
+    5...6
+    lT.Hl
+    l...l
+    l...l
+    l...l
+    lO.Ol
+    ll2ll
+[settings]
+tileset = basictiles.png
+tilesize = 16
+[.]
+name = floor
+tile = 2,0
+[l]
+name = wall
+wall = 0,0
+block = true
+tile = 0,1
+[t]
+name = torch
+tile = 0,0
+over = 7,7
+block = true
+[T]
+name = left torch
+tile = 2,0
+over = 7,5
+[H]
+name = right torch
+tile = 2,0
+over = 7,6
+[O]
+name = big torch
+tile = 2,0
+over = 7,4
+block = true
+[1]
+name = door
+door = 6,0
+tile = 6,2
+locked = true
+key = library key
+[2]
+name = door
+door = 6,0
+tile = 6,2
+portal = foyer
+start = 5,1
+locked = true
+key = hallway key
+[3]
+name = door
+door = 6,0
+tile = 6,2
+portal = NEhallroom1
+start = 7,4
+[4]
+name = door
+door = 6,0
+tile = 6,2
+portal = NEhallroom2
+start = 1,4
+[5]
+name = door
+door = 6,0
+tile = 6,2
+portal = NEhallroom3
+start = 7,2
+[6]
+name = door
+door = 6,0
+tile = 6,2
+portal = NEhallroom4
+start = 1,2

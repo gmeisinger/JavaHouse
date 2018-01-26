@@ -64,23 +64,23 @@ key = hallway key
 name = door
 door = 6,0
 tile = 6,2
-portal = hallroom1
+portal = NWhallroom1
 start = 7,4
 [4]
 name = door
 door = 6,0
 tile = 6,2
-portal = hallroom2
+portal = NWhallroom2
 start = 1,4
 [5]
 name = door
 door = 6,0
 tile = 6,2
-portal = hallroom3
+portal = NWhallroom3
 start = 7,2
 [6]
 name = door
 door = 6,0
 tile = 6,2
-portal = hallroom4
+portal = NWhallroom4
 start = 1,2

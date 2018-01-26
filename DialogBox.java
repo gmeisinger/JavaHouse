@@ -92,7 +92,7 @@ public class DialogBox
         this.fm = g2d.getFontMetrics();
         int xCoord = this.x + this.width/16;
         int yCoord = this.y + this.height/4;
-        int xMax = this.x +this.width-this.width/16;
+        int xMax = this.x +this.width-this.width/12;
         int yLines = 1;
         int words = this.msg.size();
         int wordsPrinted = 0;
@@ -102,19 +102,16 @@ public class DialogBox
         
         for(String s : this.msg)
         {
-            /*if(s.startsWith("_"))
-            {
-                this.next = new ArrayList<String>(this.msg.subList(this.msg.indexOf(s), this.msg.size()));
-                this.hasMore = true;
-                break;
-            }*/
+            //bugfix for newline chars at the beginning of a box
+            if(s.equals("\\n") && yLines == 1 && xCoord == this.x + this.width/16)
+                s = "";
             if(s.startsWith("|"))
             {
                 s = varMap.get(s.substring(1));
             }
             if(this.hasMore)
             {
-                g2d.drawString(this.MORE, this.x+(this.width/2) - (this.fm.stringWidth(this.MORE)/2), this.y+this.height-this.fm.getAscent());
+                g2d.drawString(this.MORE, this.x+(this.width/2) - (this.fm.stringWidth(this.MORE)/2), this.y+this.height-this.fm.getAscent()/4);
             }
             if(this.msg.indexOf(s) == 0)
             {

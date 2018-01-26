@@ -1,0 +1,61 @@
+    lbltPtlbl
+    le.....el
+    l..ccc..1
+    l..cac..l
+    l..ccc..l
+    l..ho...l
+    lllllllll
+[settings]
+tileset = basictiles.png
+tilesize = 16
+[.]
+name = floor
+tile = 2,0
+[c]
+name = carpetE
+tile = 2,1
+[a]
+name = carpetM
+tile = 1,1
+[l]
+name = wall
+wall = 0,0
+block = true
+tile = 0,1
+[b]
+name = bed1
+tile = 0,0
+over = 5,5
+block = true
+[e]
+name = bed2
+tile = 2,0
+over = 6,5
+block = true
+[t]
+name = torch
+tile = 0,0
+over = 7,7
+block = true
+[o]
+name = table
+tile = 2,0
+over = 6,6
+block = true
+[h]
+name = chair right
+tile = 2,0
+over = 10,3
+block = true
+[P]
+name = gus portrait
+tile = 0,0
+over = 3,0
+block = true
+msg = A portait of a king.
+[1]
+name = door
+door = 6,0
+tile = 6,2
+portal = NWhallway
+start = 1,12

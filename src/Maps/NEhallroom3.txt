@@ -1,4 +1,4 @@
-    lbltPtlbl
+    lbltltlbl
     le.....el
     l..ccc..1
     l..cac..l
@@ -47,15 +47,9 @@ name = chair right
 tile = 2,0
 over = 10,3
 block = true
-[P]
-name = gus portrait
-tile = 0,0
-over = 3,0
-block = true
-msg = A portait of a king.
 [1]
 name = door
 door = 6,0
 tile = 6,2
-portal = hallway
+portal = NEhallway
 start = 1,12

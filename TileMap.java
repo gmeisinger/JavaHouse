@@ -167,6 +167,51 @@ public class TileMap
         }
     }
 
+    public void loadSprites()
+    {
+        for(int r=0;r<this.rows;r++)
+        {
+            for(int c=0;c<this.cols;c++)
+            {
+                String ch = String.valueOf(this.charMap.get(r).charAt(c));
+                HashMap<String,String> desc = this.key.get(ch);
+                if(desc.containsKey("sprite"))
+                {
+                    Sprite s = new Sprite(c*Game.TILE_SIZE, r*Game.TILE_SIZE, Integer.parseInt(getData(ch, "size")), getData(ch, "sprite"));
+                    //this.game.addSprite(s);
+                    //custom facing
+                    if(desc.containsKey("facing")) s.setFacing(getData(ch, "facing"));
+                    //set player
+                    if(desc.containsKey("player")) 
+                    {
+                        game.setPlayer(new Player(s, this.game));
+                    }
+                    //the map will keep the list of its sprites
+                    else if(desc.containsKey("npc"))
+                    {
+                        Npc npc = new Npc(s, this.game);
+                        npc.setMessage(getData(ch, "npcMsg"));
+                        if(desc.containsKey("wander"))
+                            npc.setWander(Integer.parseInt(desc.get("wander")));
+                        if(desc.containsKey("wanderX"))
+                            npc.setWander(Integer.parseInt(desc.get("wanderX")), 0);
+                        if(desc.containsKey("wanderY"))
+                            npc.setWander(0, Integer.parseInt(desc.get("wanderY")));
+
+                        npc.setDesc(desc);
+                        this.NpcSprites.add(npc);
+                    }
+                    else if(desc.containsKey("item"))
+                    {
+                        Item item = new Item(c, r, desc.get("item"), s);
+                        this.items.add(item);
+                    }
+
+                }
+            }
+        }
+    }
+
     public void drawMap(Graphics2D g2d)
     {
         for(int r=0; r<this.rows;r++)
@@ -217,49 +262,7 @@ public class TileMap
         }
     }
 
-    public void loadSprites()
-    {
-        for(int r=0;r<this.rows;r++)
-        {
-            for(int c=0;c<this.cols;c++)
-            {
-                String ch = String.valueOf(this.charMap.get(r).charAt(c));
-                HashMap<String,String> desc = this.key.get(ch);
-                if(desc.containsKey("sprite"))
-                {
-                    Sprite s = new Sprite(c*Game.TILE_SIZE, r*Game.TILE_SIZE, Integer.parseInt(getData(ch, "size")), getData(ch, "sprite"));
-                    //this.game.addSprite(s);
-                    //custom facing
-                    if(desc.containsKey("facing")) s.setFacing(getData(ch, "facing"));
-                    //set player
-                    if(desc.containsKey("player")) 
-                    {
-                        game.setPlayer(new Player(s, this.game));
-                    }
-                    //the map will keep the list of its sprites
-                    else if(desc.containsKey("npc"))
-                    {
-                        Npc npc = new Npc(s, this.game);
-                        npc.setMessage(getData(ch, "npcMsg"));
-                        if(desc.containsKey("wander"))
-                            npc.setWander(Integer.parseInt(desc.get("wander")));
-                        if(desc.containsKey("wanderX"))
-                            npc.setWander(Integer.parseInt(desc.get("wanderX")), 0);
-                        if(desc.containsKey("wanderY"))
-                            npc.setWander(0, Integer.parseInt(desc.get("wanderY")));
-
-                        this.NpcSprites.add(npc);
-                    }
-                    else if(desc.containsKey("item"))
-                    {
-                        Item item = new Item(c, r, desc.get("item"), s);
-                        this.items.add(item);
-                    }
-
-                }
-            }
-        }
-    }
+    
 
     //CLASS HELPERS
     //some helpers

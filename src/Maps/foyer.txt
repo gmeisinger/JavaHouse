@@ -83,10 +83,10 @@ tile = 6,2
 locked = true
 key = library key
 [2]
-name = hallway door
+name = nwhallway door
 door = 6,0
 tile = 6,2
-portal = hallway
+portal = NWhallway
 start = 2,17
 [3]
 name = basement door

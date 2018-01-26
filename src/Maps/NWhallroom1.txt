@@ -64,5 +64,5 @@ size = 16
 name = door
 door = 6,0
 tile = 6,2
-portal = hallway
+portal = NWhallway
 start = 1,6

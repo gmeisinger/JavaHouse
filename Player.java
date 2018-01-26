@@ -44,6 +44,7 @@ public class Player
         //INVENTORY
         this.inventory = new ArrayList<String>();
         this.knowledge = new HashMap<String,String>();
+        this.knowledge.put("basic", "I woke up with a strange feeling that something was wrong... Better shake it off and get moving!");
         //ANIMATIONS
         BufferedImage[] animStanding = {this.sprite.getSprite(0, 0)};
         //BufferedImage[] animWalkLeft = {};
@@ -153,7 +154,40 @@ public class Player
         {
             if(npc.getLoc().equals(this.getLookingLoc()))
             {
+                boolean done = false;
                 msg = npc.getMessage();
+                //see if they have info
+                if(npc.has("knowledge"))
+                {
+                    String knowledge = npc.get("knowledge");
+                    //see if we have the knowledge required
+                    if(this.knowledge.containsKey(npc.get("npckcheck")))
+                    {
+                        //finally get knowledge
+                        this.knowledge.put(knowledge, npc.get("knowledgemsg"));
+                        msg = npc.get("npckcheckmsg");
+                        npc.remove("knowledge");
+                        done = true;
+                    }
+                }
+                //see if we can get item
+                if(npc.has("item") && !done)
+                {
+                    //see if we have the knowledge
+                    if(this.knowledge.containsKey(npc.get("npcicheck")))
+                    {
+                        //finally get item
+                        this.inventory.add(npc.get("item"));
+                        this.animation = this.hooray;
+                        this.animation.update();
+                        this.sprite.setSpriteImage(animation.getSprite());
+                        msg = npc.get("npcicheckmsg") + " \\n " + " You got the " + npc.get("item") + "!";
+                        npc.remove("item");
+                        
+                    }
+                }
+                if(!npc.has("item") && !npc.has("knowledge") && npc.has("finalmsg"))
+                    npc.setMessage(npc.get("finalmsg"));
                 dbox.setMessage(msg);
                 this.game.showDialog(true);
                 return;

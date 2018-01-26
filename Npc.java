@@ -5,6 +5,7 @@ import java.awt.Point;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 import java.lang.Math;
+import java.util.HashMap;
 
 import JavaHouse.Game;
 import JavaHouse.Sprite;
@@ -14,6 +15,7 @@ public class Npc
 {
     //vars
     private String msg;
+    private String finalMsg;
     private Sprite sprite;
     private Animation animation;
     private Game game;
@@ -23,8 +25,8 @@ public class Npc
     private int maxWanderY = 0;
     private int xDistTraveled = 0;
     private int yDistTraveled = 0;
-    //private Point startingLoc;
-
+    //the info from the map.txt
+    private HashMap<String,String> desc;
     //ANIMATIONS
     private Animation standing;
     private Animation walking;
@@ -48,7 +50,6 @@ public class Npc
         this.walking = new Animation(animWalkRight, 2);
 
         this.animation = standing;
-        //this.startingLoc = new Point(this.sprite.getLoc());
     }
 
     public void update()
@@ -128,6 +129,15 @@ public class Npc
     }
 
     //MY SETTERS
+    public void setDesc(HashMap<String,String> desc)
+    {
+        this.desc = desc;
+    }
+    public void remove(String key)
+    {
+        this.desc.remove(key);
+    }
+
     public void setMessage(String msg)
     {
         this.msg = msg;
@@ -144,7 +154,22 @@ public class Npc
         if(yDistance != 0) this.maxWanderY = yDistance;
     }
 
+    
+
     //MY GETTERS
+    public boolean has(String key)
+    {
+        return this.desc.containsKey(key);
+    }
+    public String get(String key)
+    {
+        return this.desc.get(key);
+    }
+    public HashMap<String,String> getDesc()
+    {
+        return this.desc;
+    }
+
     public Point getLoc()
     {
         return new Point(this.sprite.getSpriteX(), this.sprite.getSpriteY());
