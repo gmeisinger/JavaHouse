@@ -1,5 +1,5 @@
     lltll2lltllltllltllltlllttllltllltllltllltll1lltll
-    l...cac.@..................................cac...l
+    l...cac....................................cac...l
     l.cccaccccccccccccccccccccccccccccccccccccccaccc.l
     l.caaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaac.l
     l.cccccccccccccccccccaaaaaaaaccccccccccccccccccc.l
@@ -109,9 +109,3 @@ size = 16
 npc = true
 npcMsg = Hey! Shhh!!!! \n Don't tell anyone I'm here and I'll tell you a secret! \n There's something in the basement! I saw it! \n Gotta get outta here...
 wanderY = 1
-[@]
-name = player
-tile = 2,0
-sprite = meSheet.png
-player = true
-size = 32
